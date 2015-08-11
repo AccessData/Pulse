@@ -7,29 +7,6 @@ Game::Game(LARGE_INTEGER start, LARGE_INTEGER frequency, ID2D1Factory *pID2D1Fac
 	m_pID2D1Factory = pID2D1Factory;
 
 	srand(GetTickCount());
-
-	Enemy *e;
-	
-	for (int i = 0; i < 4; i++) {
-		e = new Enemy(
-			(float)((rand() % 600) + 50),
-			(float)((rand() % 400) + 50),
-			NewHome(),
-			pID2D1Factory);
-
-		m_enemies.push_back(e);
-	}
-
-	Pulsar *p;
-
-	for (int i = 0; i < 2; i++) {
-		p = new Pulsar(
-			(float)((rand() % 600) + 50),
-			(float)((rand() % 400) + 50));
-
-		m_pulsars.push_back(p);
-	}
-
 }
 
 
@@ -42,25 +19,26 @@ void Game::Render(ID2D1DeviceContext *pRenderTarget)
 {
 	pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
+	for (unsigned int i = 0; i < m_enemies.size(); i++) {
+		m_enemies[i]->Render(pRenderTarget);
+	}
+
 	for (unsigned int i = 0; i < m_bullets.size(); i++) {
 		m_bullets[i]->Render(pRenderTarget);
+	}
+
+	for (unsigned int i = 0; i < m_pulsars.size(); i++) {
+		m_pulsars[i]->Render(pRenderTarget);
 	}
 
 	for (unsigned int i = 0; i < m_pulses.size(); i++) {
 		m_pulses[i]->Render(pRenderTarget);
 	}
 
-	for (unsigned int i = 0; i < m_enemies.size(); i++) {
-		m_enemies[i]->Render(pRenderTarget);
-	}
-
 	for (unsigned int i = 0; i < m_homes.size(); i++) {
 		m_homes[i]->Render(pRenderTarget);
 	}
 
-	for (unsigned int i = 0; i < m_pulsars.size(); i++) {
-		m_pulsars[i]->Render(pRenderTarget);
-	}
 }
 
 
@@ -69,8 +47,11 @@ void Game::Update(LARGE_INTEGER now)
 	// fire
 	if (now.QuadPart > m_last_fire.QuadPart + m_frequency.QuadPart * 0.5f) {
 
-		for (unsigned int i = 0; i < m_enemies.size(); i++) {
-			m_bullets.push_back(m_enemies[i]->Fire());
+		if (m_homes.size() > 0) {
+
+			for (unsigned int i = 0; i < m_enemies.size(); i++) {
+				m_bullets.push_back(m_enemies[i]->Fire());
+			}
 		}
 
 		m_last_fire.QuadPart = now.QuadPart;
@@ -175,17 +156,18 @@ void Game::Update(LARGE_INTEGER now)
 
 	// if the target is dead obtain a new one
 	for (long i = m_enemies.size() - 1; i >= 0; i--) {
-		if (!m_enemies[i]->IsTargetAlive()) {
-			m_enemies[i]->SetTarget(NewHome());
+		if (!m_enemies[i]->IsTargetAlive() && m_homes.size() > 0) {
+			m_enemies[i]->SetTarget(RandomHome());
 		}
 	}
 
 }
 
-Home *Game::NewHome() {
+Home *Game::AddHome(short xPos, short yPos) 
+{
 
-	float x = (float)((rand() % 600) + 50);
-	float y = (float)((rand() % 400) + 50);
+	float x = xPos;// (float)((rand() % 600) + 50);
+	float y = yPos;// (float)((rand() % 400) + 50);
 	Home *h = new Home(
 		x,
 		y,
@@ -193,10 +175,49 @@ Home *Game::NewHome() {
 
 	m_homes.push_back(h);
 
+	AddEnemy();
+
 	return h;
 }
 
+Enemy *Game::AddEnemy() 
+{
+	Enemy *e;
+	
+	e = new Enemy(
+		(float)((rand() % 600) + 50),
+		(float)((rand() % 400) + 50),
+		RandomHome(),
+		m_pID2D1Factory);
+
+	m_enemies.push_back(e);
+
+	return e;
+}
+
+Pulsar *Game::AddPulsar(short xPos, short yPos)
+{
+
+	float x = xPos;// (float)((rand() % 600) + 50);
+	float y = yPos;// (float)((rand() % 400) + 50);
+	Pulsar *p = new Pulsar(
+		x,
+		y);
+
+	m_pulsars.push_back(p);
+
+	return p;
+}
 int Game::EnemyCount()
 {
 	return m_enemies.size();
+}
+
+Home *Game::RandomHome()
+{
+	if (m_homes.empty() == false) {
+		long i = rand() % m_homes.size();
+		return m_homes[i];
+	}
+	return NULL;
 }

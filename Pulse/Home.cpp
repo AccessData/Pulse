@@ -77,13 +77,13 @@ void Home::Render(ID2D1DeviceContext *pRenderTarget)
 			3.0f
 			);
 
-		pRenderTarget->DrawEllipse(
-			D2D1::Ellipse(
-			D2D1::Point2F(x, y),
-			3.0f,
-			3.0f),
-			borderBrush,
-			3.f);
+		//pRenderTarget->DrawEllipse(
+		//	D2D1::Ellipse(
+		//	D2D1::Point2F(x, y),
+		//	3.0f,
+		//	3.0f),
+		//	borderBrush,
+		//	3.f);
 
 		fillBrush->Release();
 		borderBrush->Release();

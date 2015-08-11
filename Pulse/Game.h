@@ -42,8 +42,12 @@ public:
 
 	void Update(LARGE_INTEGER now);
 	void Render(ID2D1DeviceContext *pRenderTarget);
-	Home *NewHome();
 
+	Home *AddHome(short xPos, short yPos);
+	Enemy *AddEnemy();
+	Pulsar *AddPulsar(short xPos, short yPos);
+
+	Home *RandomHome();
 	int EnemyCount();
 };
 

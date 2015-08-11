@@ -4,7 +4,7 @@
 
 Pulse::Pulse(float xPos, float yPos, ID2D1Factory *pID2D1Factory) : Actor(xPos, yPos)
 {
-	radius = 50;
+	radius = 30;
 
 	r = 1.0f;
 	g = 1.0f;

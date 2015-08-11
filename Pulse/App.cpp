@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <windowsx.h>
 
 #include <vector>
 #include <streambuf>
@@ -43,9 +44,23 @@ LRESULT CALLBACK WindowProc(
 	switch (uMsg)
 	{
 	case WM_LBUTTONDOWN:
-		delete game;
-		game = new Game(start, frequency, pID2D1Factory);
+	{
+		//delete game;
+		//game = new Game(start, frequency, pID2D1Factory);
+		short xPos = GET_X_LPARAM(lParam);
+		short yPos = GET_Y_LPARAM(lParam);
+		game->AddHome(xPos, yPos);
 		return 0;
+	}
+	case WM_RBUTTONDOWN:
+	{
+		//delete game;
+		//game = new Game(start, frequency, pID2D1Factory);
+		short xPos = GET_X_LPARAM(lParam);
+		short yPos = GET_Y_LPARAM(lParam);
+		game->AddPulsar(xPos, yPos);
+		return 0;
+	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
@@ -129,7 +144,12 @@ int CALLBACK WinMain(
 	IDXGIFactory2 * pIDXGIFactory;
 	hr = pDXGIAdapter->GetParent(__uuidof(IDXGIFactory2), (void **)&pIDXGIFactory);
 
+	RECT rect = { 0 };
+	GetClientRect(hwnd, &rect);
+
 	DXGI_SWAP_CHAIN_DESC1 props = {};
+	props.Width = (rect.right - rect.top);
+	props.Height = (rect.bottom - rect.top);
 	props.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	props.SampleDesc.Count = 1;
 	props.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;

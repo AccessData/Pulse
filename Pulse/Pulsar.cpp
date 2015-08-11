@@ -2,7 +2,7 @@
 
 Pulsar::Pulsar(float xPos, float yPos) : Actor(xPos, yPos)
 {
-	radius = 50;
+	radius = 30;
 	r = 1.0f;
 	g = 1.0f;
 	b = 0.0f;

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pulse", "Pulse\Pulse.vcxproj", "{E2A20A69-F103-4D7D-8575-9E54FF437C6F}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{E1268AA3-5A4C-4370-BBE7-F15F33C29EF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,18 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Debug|Win32.Build.0 = Debug|Win32
+		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Debug|Win32.ActiveCfg = Release|Win32
+		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Debug|Win32.Build.0 = Release|Win32
+		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Debug|Win32.Deploy.0 = Release|Win32
 		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Release|Win32.ActiveCfg = Release|Win32
 		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Release|Win32.Build.0 = Release|Win32
+		{E2A20A69-F103-4D7D-8575-9E54FF437C6F}.Release|Win32.Deploy.0 = Release|Win32
+		{E1268AA3-5A4C-4370-BBE7-F15F33C29EF7}.Debug|Win32.ActiveCfg = Release
+		{E1268AA3-5A4C-4370-BBE7-F15F33C29EF7}.Debug|Win32.Build.0 = Release
+		{E1268AA3-5A4C-4370-BBE7-F15F33C29EF7}.Debug|Win32.Deploy.0 = Release
+		{E1268AA3-5A4C-4370-BBE7-F15F33C29EF7}.Release|Win32.ActiveCfg = Release
+		{E1268AA3-5A4C-4370-BBE7-F15F33C29EF7}.Release|Win32.Build.0 = Release
+		{E1268AA3-5A4C-4370-BBE7-F15F33C29EF7}.Release|Win32.Deploy.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
